@@ -173,9 +173,14 @@ public:
     
     // Mutators
     void push_back( const ItemType& value ){
+        buffer[begin_index + ring_size] = value;
+        ++ring_size;
         return;
     }
+    
     void pop_front(){
+        ++begin_index;
+        --ring_size;
         return;
     }
     
