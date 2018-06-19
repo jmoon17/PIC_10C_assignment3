@@ -173,11 +173,20 @@ public:
     
     // Mutators
     void push_back( const ItemType& value ){
-        buffer[begin_index + ring_size] = value;
-        ++ring_size;
+        if(ring_size < MAX_SIZE)
+        {
+            buffer[(begin_index + ring_size)% MAX_SIZE] = value;
+            ++ring_size;
+        }
+        else
+        {
+            buffer[ (begin_index + ring_size)% MAX_SIZE] = value;
+            begin_index = (++begin_index)%MAX_SIZE;
+            
+        }
         return;
     }
-    
+
     void pop_front(){
         ++begin_index;
         --ring_size;
