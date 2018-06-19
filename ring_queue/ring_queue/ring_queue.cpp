@@ -175,24 +175,25 @@ public:
     void push_back( const ItemType& value ){
         if(ring_size < MAX_SIZE)
         {
-            buffer[(begin_index + ring_size)% MAX_SIZE] = value;
+            buffer[(begin_index + ring_size)] = value;
             ++ring_size;
         }
         else
         {
             buffer[ (begin_index + ring_size)% MAX_SIZE] = value;
-            begin_index = (++begin_index)%MAX_SIZE;
+            begin_index = (++begin_index)%MAX_SIZE;  //%MAX_SIZE to keep begin_index within the capacity
             
         }
         return;
     }
 
     void pop_front(){
-        ++begin_index;
+        begin_index = (++begin_index)%MAX_SIZE;
         --ring_size;
         return;
     }
     
+
     // Functions that return iterators
     iterator begin() {
         // Replace the line(s) below with your code.
