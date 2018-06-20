@@ -68,17 +68,25 @@ public:
     public:
         reference operator*() {
             // Replace the line(s) below with your code.
-            return parent->buffer[0] ;
+            return parent->buffer[offset] ;
         }
         
         iterator& operator++(){
             // Replace the line(s) below with your code.
+            ++offset;
+            if(offset > parent->ring_size){
+                offset =0;
+            }
+            
             return *this;
         }
         
         iterator operator++( int unused ){
             // Replace the line(s) below with your code.
-            return *this;
+            iterator clone(*this);
+            ++offset;
+            
+            return clone;
         }
         
         bool operator==( const iterator& rhs ) const {
@@ -140,7 +148,7 @@ private:
     // of the RingQueue
     int end_index() const {
         // Replace the line(s) below with your code.
-        return begin_index;
+        return (begin_index+ring_size)%MAX_SIZE;
     }
     
     
@@ -157,7 +165,7 @@ public:
         
         
         // Replace the line(s) below with your code.
-        return buffer[0];
+        return buffer[begin_index];
     }
     ItemType back() const {
         if ( ring_size == 0 ) std::cerr<< "Warning: Empty ring!\n" ;
@@ -166,7 +174,7 @@ public:
         
         
         // Replace the line(s) below with your code.
-        return buffer[0];
+        return buffer[end_index()];
     }
     
     
@@ -197,17 +205,17 @@ public:
     // Functions that return iterators
     iterator begin() {
         // Replace the line(s) below with your code.
-        return iterator(this,0);
+        return iterator(this,begin_index);
     }
     iterator end() {
         // Replace the line(s) below with your code.
-        return iterator(this,0);
+        return iterator(this,end_index());
     }
     
     // Miscellaneous functions
     size_t size() const {
         // Replace the line(s) below with your code.
-        return 0;
+        return ring_size;
     }
     
     // Debugging functions
