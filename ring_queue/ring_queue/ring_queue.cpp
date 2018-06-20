@@ -91,12 +91,16 @@ public:
         
         bool operator==( const iterator& rhs ) const {
             // Replace the line(s) below with your code.
-            return true;
+            return (parent == rhs.parent && offset == rhs.offset);
         }
         
         bool operator!=( const iterator& rhs ) const {
             // Replace the line(s) below with your code.
-            return true;
+            if(*this == rhs)
+                return false;
+            else
+                return true;
+                
         }
         
     };
