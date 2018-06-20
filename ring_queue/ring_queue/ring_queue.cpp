@@ -100,7 +100,7 @@ public:
                 return false;
             else
                 return true;
-                
+            
         }
         
     };
@@ -152,7 +152,13 @@ private:
     // of the RingQueue
     int end_index() const {
         // Replace the line(s) below with your code.
-        return (begin_index+ring_size)%MAX_SIZE;
+        int index;
+        index = begin_index + ring_size;
+        if (index > MAX_SIZE){
+            index %= MAX_SIZE;
+        }
+        return index;
+
     }
     
     
